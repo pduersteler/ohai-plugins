@@ -14,8 +14,8 @@ Ohai.plugin(:Kvm) do
         guest_usedmemory_total = 0
         guest_cpu_total = 0
         virtualization[:kvm] = Mash.new unless virtualization[:kvm]
-        virtualization[:kvm][:guests] = Mash.new
-          unless virtualization[:kvm][:guests]
+        virtualization[:kvm][:guests] = Mash.new unless virtualization[:kvm][:guests]
+
         %x{virsh list --all | grep -vP '\S*Id|^-|^$'}.each_line do |g|
           id, name, state = g.split
           virtualization[:kvm][:guests][name] = Mash.new
@@ -59,4 +59,3 @@ Ohai.plugin(:Kvm) do
     end
   end
 end
-
